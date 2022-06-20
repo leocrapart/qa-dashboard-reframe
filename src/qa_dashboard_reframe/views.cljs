@@ -30,7 +30,7 @@
    :failed 0
    :duration 6555
    :run-id 81004
-  }
+  })
 
 
 (defn main-panel [github-names]
