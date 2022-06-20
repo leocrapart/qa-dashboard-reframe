@@ -23,6 +23,8 @@
 
 
 
+
+
 (defn parse-job-log [job-log]
   {:passed 19
    :failed 0
@@ -35,7 +37,7 @@
   (let [name (rf/subscribe [::subs/name])
 				ditto (rf/subscribe [::subs/ditto])]
     [:div
-     [:div.bg-gray-300.text-xl.flex.justify-center.py-2
+     [:div.bg-gray-200.text-xl.flex.justify-center.py-2
       "QA Dashboard " @name]
 
      [:div.bg-green-500.hover:bg-green-600.px-2 "Create"]
