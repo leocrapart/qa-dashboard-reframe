@@ -23,6 +23,13 @@
 
 
 
+(defn parse-job-log [job-log]
+  {:passed 19
+   :failed 0
+   :duration 6555
+   :run-id 81004
+  }
+
 
 (defn main-panel [github-names]
   (let [name (rf/subscribe [::subs/name])
