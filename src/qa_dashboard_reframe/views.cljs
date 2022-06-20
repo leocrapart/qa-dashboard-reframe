@@ -21,6 +21,9 @@
 									(rf/dispatch [:fetch-ditto]))}
 		"Fetch ditto"])
 
+
+
+
 (defn main-panel [github-names]
   (let [name (rf/subscribe [::subs/name])
 				ditto (rf/subscribe [::subs/ditto])]
@@ -49,6 +52,8 @@
      [:div.px-2 "."]
 
      (fetch-button)
+
+     [:a {:href "https://google.com"} "google"]
 
      [:div (str @ditto)]
      ]))
