@@ -1,6 +1,6 @@
 (ns qa-dashboard-reframe.views
   (:require
-   [re-frame.core :as re-frame]
+   [re-frame.core :as rf]
    [qa-dashboard-reframe.subs :as subs]
    ))
 
@@ -14,8 +14,16 @@
 (defn closed-pbis [])
 
 
+(defn fetch-button []
+	[:button.bg-blue-300.px-4.py-2.rounded
+		{:on-click (fn [e]
+									(.preventDefault e)
+									(rf/dispatch [:fetch-ditto]))}
+		"Fetch ditto"])
+
 (defn main-panel [github-names]
-  (let [name (re-frame/subscribe [::subs/name])]
+  (let [name (rf/subscribe [::subs/name])
+				ditto (rf/subscribe [::subs/ditto])]
     [:div
      [:div.bg-gray-300.text-xl.flex.justify-center.py-2
       "QA Dashboard " @name]
@@ -40,4 +48,9 @@
      [:div.px-2 "test coverage = 100%"]
      [:div.px-2 "."]
 
+     (fetch-button)
+
+     [:div (str @ditto)]
      ]))
+
+

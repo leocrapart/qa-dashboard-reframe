@@ -1,0 +1,1097 @@
+{
+	"info": {
+		"_postman_id": "0cd7f747-f018-476b-8dc2-f891a332f8cf",
+		"name": "Azure API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authorization url",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://app.vssps.visualstudio.com/oauth2/authorize&response_type=Assertion",
+					"protocol": "https",
+					"host": [
+						"app",
+						"vssps",
+						"visualstudio",
+						"com"
+					],
+					"path": [
+						"oauth2",
+						"authorize&response_type=Assertion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://app.vssps.visualstudio.com/oauth2/token?client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer",
+					"protocol": "https",
+					"host": [
+						"app",
+						"vssps",
+						"visualstudio",
+						"com"
+					],
+					"path": [
+						"oauth2",
+						"token"
+					],
+					"query": [
+						{
+							"key": "client_assertion_type",
+							"value": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
+						},
+						{
+							"key": "grant_type",
+							"value": "urn:ietf:params:oauth:grant-type:jwt-bearer"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get pbis",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/wit/queries/57c93289-5efb-4d35-b40b-e9de60ffe8cb?api-version=6.0",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"wit",
+						"queries",
+						"57c93289-5efb-4d35-b40b-e9de60ffe8cb"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get query 2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/ae626ca0-d75b-47c4-bf08-faa63374577c/_apis/wit/wiql/57c93289-5efb-4d35-b40b-e9de60ffe8cb",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"ae626ca0-d75b-47c4-bf08-faa63374577c",
+						"_apis",
+						"wit",
+						"wiql",
+						"57c93289-5efb-4d35-b40b-e9de60ffe8cb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get query 3",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/ae626ca0-d75b-47c4-bf08-faa63374577c/_apis/wit/workItems/51918",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"ae626ca0-d75b-47c4-bf08-faa63374577c",
+						"_apis",
+						"wit",
+						"workItems",
+						"51918"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get closed pbis Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"query\": \"Select [System.Id], [System.Title], [System.State] From WorkItems Where [System.WorkItemType] = 'Product Backlog Item' AND [State] <> 'Closed' AND [State] <> 'Done' order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/wit/wiql/57c93289-5efb-4d35-b40b-e9de60ffe8cb?api-version=6.0",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"wit",
+						"wiql",
+						"57c93289-5efb-4d35-b40b-e9de60ffe8cb"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get closed pbis",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"query\": \"Select [System.Id], [System.Title], [System.State] From WorkItems Where [System.WorkItemType] = 'Product Backlog Item' AND [State] <> 'Closed' AND [State] <> 'Done' AND [AreaPath]  order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/wit/wiql?api-version=6.0",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"wit",
+						"wiql"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get create feature file (main)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/git/repositories/DigitalGraphData/items?api-version=6.0-preview.1\n&path=/tests/DigitalTwin.tests.IntegrationTests/Features/Create/CreateEntity.feature",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"git",
+						"repositories",
+						"DigitalGraphData",
+						"items"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.0-preview.1\n"
+						},
+						{
+							"key": "path",
+							"value": "/tests/DigitalTwin.tests.IntegrationTests/Features/Create/CreateEntity.feature"
+						},
+						{
+							"key": "repository",
+							"value": "DigitalGraphData",
+							"disabled": true
+						},
+						{
+							"key": "commit",
+							"value": "717654b7",
+							"disabled": true
+						},
+						{
+							"key": "download",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "versionType",
+							"value": "Branch",
+							"disabled": true
+						},
+						{
+							"key": "version",
+							"value": "main",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get create feature file (qa/update-patch)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/git/repositories/DigitalGraphData/items?api-version=6.0-preview.1\n&path=/tests/DigitalTwin.tests.IntegrationTests/Features/Create/CreateEntity.feature&versionType=Branch&version=qa/update-patch",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"git",
+						"repositories",
+						"DigitalGraphData",
+						"items"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.0-preview.1\n"
+						},
+						{
+							"key": "path",
+							"value": "/tests/DigitalTwin.tests.IntegrationTests/Features/Create/CreateEntity.feature"
+						},
+						{
+							"key": "repository",
+							"value": "DigitalGraphData",
+							"disabled": true
+						},
+						{
+							"key": "commit",
+							"value": "717654b7",
+							"disabled": true
+						},
+						{
+							"key": "download",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "versionType",
+							"value": "Branch"
+						},
+						{
+							"key": "version",
+							"value": "qa/update-patch"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get dev_validation test results",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/status/Dev Validation?api-version=6.0-preview.1\n",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"build",
+						"status",
+						"Dev Validation"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.0-preview.1\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get dev_validation test results (buildId)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655?api-version=6.1-preview.1",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"build",
+						"builds",
+						"39655"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.1-preview.1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get dev_validation test results (buildId) 2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/ae626ca0-d75b-47c4-bf08-faa63374577c/_apis/build/Builds/39655",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"ae626ca0-d75b-47c4-bf08-faa63374577c",
+						"_apis",
+						"build",
+						"Builds",
+						"39655"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get dev_validation test results (buildId) 2 timeline",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/ae626ca0-d75b-47c4-bf08-faa63374577c/_apis/build/builds/39655/Timeline",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"ae626ca0-d75b-47c4-bf08-faa63374577c",
+						"_apis",
+						"build",
+						"builds",
+						"39655",
+						"Timeline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get dev_validation test results (buildId) 2 timeline log",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/ae626ca0-d75b-47c4-bf08-faa63374577c/_apis/build/builds/39655/logs/9",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"ae626ca0-d75b-47c4-bf08-faa63374577c",
+						"_apis",
+						"build",
+						"builds",
+						"39655",
+						"logs",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get dev_validation test results (buildId) 3",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/ae626ca0-d75b-47c4-bf08-faa63374577c/_apis/build/builds/39655/Timeline",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"ae626ca0-d75b-47c4-bf08-faa63374577c",
+						"_apis",
+						"build",
+						"builds",
+						"39655",
+						"Timeline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get last build",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/ae626ca0-d75b-47c4-bf08-faa63374577c/_apis/build/builds/39655/Timeline",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"ae626ca0-d75b-47c4-bf08-faa63374577c",
+						"_apis",
+						"build",
+						"builds",
+						"39655",
+						"Timeline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get passed failed tests dev_validation last build",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655?api-version=6.1-preview.1",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"build",
+						"builds",
+						"39655"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.1-preview.1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "----",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655?api-version=6.1-preview.1",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"build",
+						"builds",
+						"39655"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.1-preview.1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test log endpoint",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://vstmr.dev.azure.com/hagerdevops-prod/Platform/_apis/testresults/runs/81004/results/0/testlogstoreendpoint?type=generalAttachment&filePath={filePath}&api-version=6.0-preview.1",
+					"protocol": "https",
+					"host": [
+						"vstmr",
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"testresults",
+						"runs",
+						"81004",
+						"results",
+						"0",
+						"testlogstoreendpoint"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "generalAttachment"
+						},
+						{
+							"key": "filePath",
+							"value": "{filePath}"
+						},
+						{
+							"key": "api-version",
+							"value": "6.0-preview.1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test log runId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://vstmr.dev.azure.com/hagerdevops-prod/Platform/_apis/testresults/runs/81004/testlog?type=generalAttachment&api-version=6.0-preview.1\n",
+					"protocol": "https",
+					"host": [
+						"vstmr",
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"testresults",
+						"runs",
+						"81004",
+						"testlog"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "generalAttachment"
+						},
+						{
+							"key": "api-version",
+							"value": "6.0-preview.1\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test log runId 2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/test/runs/81004?api-version=6.0",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"test",
+						"runs",
+						"81004"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test log runId 2 statistics",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev.azure.com/hagerdevops-prod/Platform/_apis/test/runs/81004/Statistics?api-version=6.0",
+					"protocol": "https",
+					"host": [
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"test",
+						"runs",
+						"81004",
+						"Statistics"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "6.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test log resultId",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://vstmr.dev.azure.com/hagerdevops-prod/Platform/_apis/testresults/runs/81004/results/0/testlog?type=generalAttachment&api-version=6.0-preview.1\n",
+					"protocol": "https",
+					"host": [
+						"vstmr",
+						"dev",
+						"azure",
+						"com"
+					],
+					"path": [
+						"hagerdevops-prod",
+						"Platform",
+						"_apis",
+						"testresults",
+						"runs",
+						"81004",
+						"results",
+						"0",
+						"testlog"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "generalAttachment"
+						},
+						{
+							"key": "api-version",
+							"value": "6.0-preview.1\n"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

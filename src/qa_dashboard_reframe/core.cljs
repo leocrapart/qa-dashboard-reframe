@@ -5,6 +5,7 @@
    [qa-dashboard-reframe.events :as events]
    [qa-dashboard-reframe.views :as views]
    [qa-dashboard-reframe.config :as config]
+   [day8.re-frame.http-fx]
    ))
 
 
