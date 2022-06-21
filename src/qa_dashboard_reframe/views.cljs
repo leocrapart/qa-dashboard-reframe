@@ -4,7 +4,14 @@
    [qa-dashboard-reframe.subs]
    ))
 
-
+;; aim
+;; give the QA a syntetic dashboard with only what's needed to communicate
+;; no more everystat you need etc ...
+;; everything meaningful for the QA communication located in one place
+;; to easily monitor a project and give some overview of it's current state
+;; and should also be easily understood by other people
+;; (at least the see if all good, or if something is wrong, what is wrong and the gherkin scenario corresponding + error message)
+;; so that they can share with the QA if he did not see, and communicate with enought details the problem
 
 (def ditto-url
   "https://pokeapi.co/api/v2/pokemon/ditto")
@@ -74,6 +81,8 @@
      [:div (str @run-log-url)]
 
      (button "fetch run-log" :fetch-run-log)
+
+     [:div (str "Passed: " )]
 
      
      ]))
