@@ -4,12 +4,16 @@
 
 
 (rf/reg-sub
- ::name
+ :name
  (fn [db]
    (:name db)))
 
 (rf/reg-sub
- ::ditto
+ :ditto
  (fn [db]
    (db :ditto)))
 
+(rf/reg-sub
+	:timeline
+	(fn [db]
+		(db :timeline)))
