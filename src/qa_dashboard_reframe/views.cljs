@@ -37,7 +37,8 @@
 (defn main-panel [github-names]
   (let [name (rf/subscribe [:name])
 				ditto (rf/subscribe [:ditto])
-				timeline (rf/subscribe [:timeline])]
+				timeline (rf/subscribe [:timeline])
+				run-log-url (rf/subscribe [:run-log-url])]
     [:div
      [:div.bg-gray-200.text-xl.flex.justify-center.py-2
       "QA Dashboard " @name]
@@ -66,9 +67,15 @@
      (button "new ditto" :ditto)
      [:div (str @ditto)]
 
-     (button "fetch timeline" :fetch-timeline)
-     [:div (str @timeline)]
 
+     (button "fetch timeline" :fetch-timeline)
+     ; [:div (str @timeline)]
+
+     [:div (str @run-log-url)]
+
+     (button "fetch run-log" :fetch-run-log)
+
+     
      ]))
 
 

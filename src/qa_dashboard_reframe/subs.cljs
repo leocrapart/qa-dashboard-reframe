@@ -17,3 +17,8 @@
 	:timeline
 	(fn [db]
 		(db :timeline)))
+
+(rf/reg-sub
+	:run-log-url
+	(fn [db]
+		(db :run-log-url)))
