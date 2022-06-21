@@ -9,11 +9,6 @@
    (:name db)))
 
 (rf/reg-sub
- :ditto
- (fn [db]
-   (db :ditto)))
-
-(rf/reg-sub
 	:timeline
 	(fn [db]
 		(db :timeline)))

@@ -48,12 +48,8 @@
 (defn run-log-url [timeline]
 	(let [records (timeline :records)
 				job (first (filter is-run-integration-test-job records))]
-		; (prn "job")
-		; (prn job)
 		(get-in job [:log :url])))
 
-;;another fetch here
-(defn raw-run-log [run-log-url])
 
 ;; with this, can display ui
 ;; some parsing here
@@ -65,25 +61,6 @@
 
 
 ;; api
-;; async await here ? fetching constraints
-; (defn tests-results []
-; 	(parsed-run-log 
-; 		(raw-run-log 
-; 			(run-log-url
-; 				(timeline
-; 					(last-build-id))))))
-
-
-									
-(rf/reg-event-fx
-	:fetch-ditto
-	(fn [_ _]
-		{:http-xhrio {:method :get
-									:uri "https://pokeapi.co/api/v2/poemon/ditto"
-									:response-format (ajax/json-response-format {:keywords? true})
-									:on-success [:save-ditto]
-									:on-failure [:print-failure]}}))
-
 
 
 (rf/reg-event-fx
@@ -202,18 +179,6 @@
 		(assoc db :run-log-url (run-log-url timeline))
 		))
 
-(rf/reg-event-db
-	:save-ditto
-	(fn [db [_ result]]
-		(prn db)
-		(assoc db :ditto result)
-		))
-
-(rf/reg-event-db
-		:ditto
-		(fn [db _]
-				(prn db)
-				(assoc db :ditto "new ditto")))
 
 (rf/reg-event-fx
 	:print-name

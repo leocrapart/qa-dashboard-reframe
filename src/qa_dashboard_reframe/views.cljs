@@ -13,15 +13,6 @@
 ;; (at least the see if all good, or if something is wrong, what is wrong and the gherkin scenario corresponding + error message)
 ;; so that they can share with the QA if he did not see, and communicate with enought details the problem
 
-(def ditto-url
-  "https://pokeapi.co/api/v2/pokemon/ditto")
-
-(defn ditto-res [])
-
-
-
-
-
 
 
 (defn button [text event-name]
@@ -43,7 +34,6 @@
 
 (defn main-panel [github-names]
   (let [name (rf/subscribe [:name])
-				ditto (rf/subscribe [:ditto])
 				timeline (rf/subscribe [:timeline])
 				run-log-url (rf/subscribe [:run-log-url])]
     [:div
@@ -69,10 +59,6 @@
      [:div.px-2 "pass rate = 100%"]
      [:div.px-2 "test coverage = 100%"]
      [:div.px-2 "."]
-
-     (button "Fetch ditto" :fetch-ditto)
-     (button "new ditto" :ditto)
-     [:div (str @ditto)]
 
 
      (button "fetch timeline" :fetch-timeline)
