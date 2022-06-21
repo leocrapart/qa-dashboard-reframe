@@ -104,7 +104,7 @@
 									:uri (db :run-log-url)
 									:headers {:authorization "Basic OmZ2aTM3bmdwdnE3czRqbmltbG5iZmxoem55cnZiM2xqZnlnenRtYWl2am40YXg2cHRsN3E="}
 									:response-format (ajax/json-response-format {:keywords? true})
-									:on-success [:save-parsed-run-log]
+									:on-success [:save-tests-results]
 									:on-failure [:print-result]}}))
 
 
@@ -171,7 +171,7 @@
 
 
 (rf/reg-event-db
-	:save-parsed-run-log
+	:save-tests-results
 	(fn [db [_ res-run-log]]
 		(let [run-log (res-run-log :value)]
 			(prn "run-log")
