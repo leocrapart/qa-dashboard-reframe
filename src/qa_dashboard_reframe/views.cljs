@@ -11,14 +11,13 @@
 
 (defn ditto-res [])
 
-(defn closed-pbis [])
 
 
 (defn last-build-id []
 	39655)
 
 
-
+;; a fetch here
 (defn timeline [build-id]
 	(let [url (str "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/" build-id "/Timeline")]))
 
@@ -36,19 +35,26 @@
 				job (filter is-run-integration-test-job records)]
 		(get-in job [:log :url])))
 
+;;another fetch here
 (defn raw-run-log [run-log-url])
 
+;; with this, can display ui
+;; some parsing here
 (defn parsed-run-log [raw-run-log]
 	{:passed 19
 	 :failed 0
-	 :test-results-url ""})
+	 :duration 6
+	 :test-results-url "https://dev.azure.com/hagerdevops-prod/Platform/_TestManagement/Runs?runId=81004&_a=runCharts"})
 
-(defn test-results-url [parsed-run-log])
-(defn )
 
-(defn get-integration-tests-log []
-	(let [url "https://dev.azure.com/hagerdevops-prod/ae626ca0-d75b-47c4-bf08-faa63374577c/_apis/build/builds/39655/logs/29"]
-		"lalala"))
+;; api
+;; async await here ? fetching constraints
+(defn test-results []
+	(parsed-run-log 
+		(raw-run-log 
+			(run-log-url
+				(timeline
+					(last-build-id))))))
 
 (defn fetch-button []
 	[:button.bg-blue-300.px-4.py-2.rounded
