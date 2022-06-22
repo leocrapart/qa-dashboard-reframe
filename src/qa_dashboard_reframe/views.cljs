@@ -69,10 +69,9 @@
 
      (button "fetch run-log" :fetch-run-log)
 
-     [:div (str "Passed: " (:passed @tests-results))]
-     [:div (str "Failed: " (:failed @tests-results))]
-     [:div (str "Skipped: " (:skipped @tests-results))]
-     [:div (str "Passed: " (:passed @tests-results))]
+     [:div.text-green-500 (str "Passed: " (:passed @tests-results))]
+     [:div.text-red-500 (str "Failed: " (:failed @tests-results))]
+     [:div.text-gray-500 (str "Skipped: " (:skipped @tests-results))]
      
      ]))
 
