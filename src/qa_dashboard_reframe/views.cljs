@@ -35,7 +35,8 @@
 (defn main-panel [github-names]
   (let [name (rf/subscribe [:name])
 				timeline (rf/subscribe [:timeline])
-				run-log-url (rf/subscribe [:run-log-url])]
+				run-log-url (rf/subscribe [:run-log-url])
+				tests-results (rf/subscribe [:tests-results])]
     [:div
      [:div.bg-gray-200.text-xl.flex.justify-center.py-2
       "QA Dashboard " @name]
@@ -68,8 +69,10 @@
 
      (button "fetch run-log" :fetch-run-log)
 
-     [:div (str "Passed: " )]
-
+     [:div (str "Passed: " (:passed @tests-results))]
+     [:div (str "Failed: " (:failed @tests-results))]
+     [:div (str "Skipped: " (:skipped @tests-results))]
+     [:div (str "Passed: " (:passed @tests-results))]
      
      ]))
 

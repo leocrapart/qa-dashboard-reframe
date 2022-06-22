@@ -17,3 +17,8 @@
 	:run-log-url
 	(fn [db]
 		(db :run-log-url)))
+
+(rf/reg-sub
+	:tests-results
+	(fn [db]
+		(db :tests-results)))
