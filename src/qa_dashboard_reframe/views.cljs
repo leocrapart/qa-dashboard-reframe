@@ -72,7 +72,10 @@
      [:div.text-green-500 (str "Passed: " (:passed @tests-results))]
      [:div.text-red-500 (str "Failed: " (:failed @tests-results))]
      [:div.text-gray-500 (str "Skipped: " (:skipped @tests-results))]
-     
+     [:div (str "Duration: " (:duration @tests-results) "s")]
+     [:a.underline.hover:text-blue-500 {:href (:test-results-url @tests-results)}
+     		"detailed results"]
+					     
      ]))
 
 
