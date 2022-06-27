@@ -2,6 +2,7 @@
   (:require
    [re-frame.core :as rf]
    [qa-dashboard-reframe.db :as db]
+   [superstructor.re-frame.fetch-fx]
    [ajax.core :as ajax]
    [clojure.string :as str]))
 
@@ -73,23 +74,48 @@
 									:on-failure [:print-result]}}))
 
 
+; (rf/reg-event-fx
+; 	:fetch-timeline
+; 	(fn [_ _]
+; 		{:http-xhrio {:method :get
+; 									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/Timeline"
+; 									:headers {:authorization "Basic wj47nae3gzcsrrrge43myr3qoracbmudit3eb3qhahsgwidyczha"}
+; 									:response-format (ajax/json-response-format {:keywords? true})
+; 									:on-success [:save-timeline-run-log-url]
+; 									:on-failure [:print-result]}}))
+
+; (rf/reg-event-fx
+; 	:fetch-timeline
+; 	(fn [_ _]
+; 		{:fetch {:method :get
+; 						 :url "https://pokeapi.co/api/v2/pokemon/ditto"
+; 						 :mode :cors
+; 						 :credentials :omit
+; 						 :response-content-types {#"application/.*json" :json}
+; 					 	 :on-success [:print-result]
+; 						 :on-failure [:print-result]}}))
+
 (rf/reg-event-fx
 	:fetch-timeline
 	(fn [_ _]
-		{:http-xhrio {:method :get
-									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/Timeline"
-									:headers {:authorization "Basic OmZ2aTM3bmdwdnE3czRqbmltbG5iZmxoem55cnZiM2xqZnlnenRtYWl2am40YXg2cHRsN3E="}
-									:response-format (ajax/json-response-format {:keywords? true})
-									:on-success [:save-timeline-run-log-url]
-									:on-failure [:print-result]}}))
+		{:fetch {:method :get
+						 :url "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/logs/29"
+						 :mode :cors
+						 :credentials :include
+						 :headers                {"Authorization"  "Basic wj47nae3gzcsrrrge43myr3qoracbmudit3eb3qhahsgwidyczha"
+                                      "Accept"         "application/json"}
+						 :response-content-types {#"application/.*json" :json}
+					 	 :on-success [:print-result]
+						 :on-failure [:print-result]}}))
 
 
 (rf/reg-event-fx
 	:fetch-run-log
 	(fn [{:keys [db]} _]
 		{:http-xhrio {:method :get
-									:uri (db :run-log-url)
-									:headers {:authorization "Basic OmZ2aTM3bmdwdnE3czRqbmltbG5iZmxoem55cnZiM2xqZnlnenRtYWl2am40YXg2cHRsN3E="}
+									; :uri (db :run-log-url)
+									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/logs/29"
+									:headers {:authorization "Basic wj47nae3gzcsrrrge43myr3qoracbmudit3eb3qhahsgwidyczha"}
 									:response-format (ajax/json-response-format {:keywords? true})
 									:on-success [:save-tests-results]
 									:on-failure [:print-result]}}))
