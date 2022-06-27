@@ -20,8 +20,8 @@
 ;;azure api
 ;;
 
-(def pat "fvi37ngpvq7s4jnimlnbflhznyrvb3ljfygztmaivjn4ax6ptl7q")
-(def basic-auth-authorization (str "Basic " pat))
+(def pat "wj47nae3gzcsrrrge43myr3qoracbmudit3eb3qhahsgwidyczha")
+(def pat-authorization-header {:authorization (str "Basic " pat)})
 
 (defn last-build-id []
 	39655)
@@ -62,6 +62,16 @@
 
 ;; api
 
+(rf/reg-event-fx
+	:fetch-last-build-id
+	(fn [_ _]
+		{:http-xhrio {:method :get
+									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/Timeline"
+									:headers {:authorization "Basic OmZ2aTM3bmdwdnE3czRqbmltbG5iZmxoem55cnZiM2xqZnlnenRtYWl2am40YXg2cHRsN3E="}
+									:response-format (ajax/json-response-format {:keywords? true})
+									:on-success [:save-last-build-id]
+									:on-failure [:print-result]}}))
+
 
 (rf/reg-event-fx
 	:fetch-timeline
@@ -85,6 +95,17 @@
 									:on-failure [:print-result]}}))
 
 
+
+(rf/reg-event-fx
+	:save-last-build-id
+	(fn [_ [_ builds]])
+		{:http-xhrio {:method :get
+									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds"
+									:headers pat-authorization-header
+									:response-format (ajax/json-response-format {:keywords? true})
+									:on-success [:save-last-build-id]
+									:on-failure [:print-result]
+									}})
 
 (rf/reg-event-fx
 	:print-run-log
@@ -127,7 +148,7 @@
 									#", "))))
 
 
-(defn skipped-tests-result [line]
+(defn duration-tests-result [line]
 	(int
 		(first 
 			(str/split (second
