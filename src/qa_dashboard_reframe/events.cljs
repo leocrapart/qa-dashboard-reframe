@@ -27,15 +27,6 @@
 
 
 
-;; a fetch here
-(defn timeline-url [build-id]
-	(let [url (str "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/" build-id "/Timeline")]))
-
-
-
-
-
-
 
 ;; prints 
 
@@ -187,21 +178,29 @@
 
 ;; save run-log-url
 ;; chain via effect to auto fetch-run-log
-(rf/reg-event-db
+
+; (rf/reg-event-db
+; 	:save-timeline-run-log-url
+; 	(fn [db [_ timeline]]
+; 		(assoc db :run-log-url (run-log-url timeline))))
+
+(rf/reg-event-fx
 	:save-timeline-run-log-url
-	(fn [db [_ timeline]]
-		(assoc db :run-log-url (run-log-url timeline))
-		))
+	(fn [{:keys [db]} [_ timeline]]
+		{:db (assoc db :run-log-url (run-log-url timeline))
+		 :fx [[:dispatch [:fetch-run-log]]]}))
 
 
+(defn timeline-url [build-id]
+	(str "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/" build-id "/Timeline"))
 
 
 ;; timeline
 (rf/reg-event-fx
 	:fetch-timeline
-	(fn [_ _]
+	(fn [_ [_ build-id]]
 		{:http-xhrio {:method :get
-									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/Timeline"
+									:uri (timeline-url build-id)
 									:headers pat-authorization-header
 									:response-format (ajax/json-response-format {:keywords? true})
 									:on-success [:save-timeline-run-log-url]
@@ -213,14 +212,90 @@
 
 ; (defn last-build-id []
 ; 	39655)
-(defn last-build-id [builds])
 
-(rf/reg-event-db
+
+(defn is-digital-graph-data-build [build]
+	(let [name (get-in build [:definition :name])]
+		(if (= "DigitalGraphData" name)
+			true
+			false)))
+
+(defn digital-graph-data-builds [builds]
+	(filter is-digital-graph-data-build builds))
+
+
+
+(defn build-name [build]
+	(get-in build [:definition :name]))
+
+(defn builds-names [builds]
+	(map build-name builds))
+
+(defn last-build-id [builds]
+	(let [digi-builds (digital-graph-data-builds builds)
+				last-build (nth digi-builds 0)]
+		(last-build :id)))
+
+
+(defn digital-graph-data-builds-ids [builds]
+	(let [digi-builds (digital-graph-data-builds builds)]
+		(map :id digi-builds)))
+
+(rf/reg-event-fx
 	:save-last-build-id
-	(fn [db [_ builds]]
-		(prn builds)
-		(assoc db :last-build-id 9999)
-	))
+	(fn [{:keys [db]} [_ result]]
+		(let [builds (result :value)
+					last-build-id (last-build-id builds)
+					builds-ids (digital-graph-data-builds-ids builds)
+					second-last-build-id (nth builds-ids 20)]
+
+			(prn "digital graph data builds ids")
+			(prn (digital-graph-data-builds-ids builds))
+
+			{:db (assoc db :last-build-id last-build-id
+										 :builds-ids builds-ids)
+			 :fx [[:dispatch [:fetch-timeline last-build-id]]]})))
+
+; (rf/reg-event-db
+; 	:save-last-build-id
+; 	(fn [db [_ result]]
+; 		(let [builds (result :value)
+; 					; first-build (nth (result :value) 0)
+; 					; n 60
+; 					; nbuild (nth (result :value) n)
+; 					]
+; 			; (prn "first build")
+; 			; (prn first-build)
+; 			; (prn "first build type")
+; 			; (prn (type first-build))
+
+; 			; (prn "first build name")
+; 			; (prn (get-in first-build [:definition :name]))
+
+; 			; (prn (str "is digi build " n))
+; 			; (prn (build-name nbuild))
+; 			; (prn (is-digital-graph-data-build nbuild))
+
+; 			; (prn "are digi builds ?")
+; 			; (prn (are-digital-graph-data-builds builds))
+
+; 			; (prn "builds names")
+; 			; (prn (builds-names builds))
+
+; 			; (prn "digi builds")
+; 			; (prn (digital-graph-data-builds builds))
+
+; 			; (prn "number of digi builds")
+; 			; (prn (count (digital-graph-data-builds builds)))
+
+; 			; (prn "last-build-id")
+; 			; (prn (last-build-id builds))
+
+; 			; (prn "digital graph data builds ids")
+; 			; (prn (digital-graph-data-builds-ids builds))
+
+; 			(assoc db :last-build-id (last-build-id builds)
+; 								:builds-ids (digital-graph-data-builds-ids builds)))))
 
 ;; last build-id
 (rf/reg-event-fx
@@ -237,18 +312,14 @@
 (rf/reg-event-fx
 	:get-last-build-id
 	(fn [_ _]
-		{:interval {:action :start
-								:id :temp-id
-								:event [:fetch-builds]}}))
+		{:fx [[:dispatch [:fetch-builds]]]}))
 
 
 ;; tests results
 (rf/reg-event-fx
 	:get-tests-results
 	(fn [_ _]
-		{:interval {:action :start
-								:id :temp-id
-								:event [:fetch-run-log]}}))
+		{:fx [[:dispatch [:get-last-build-id]]]}))
 
 
 

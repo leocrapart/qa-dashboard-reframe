@@ -70,7 +70,7 @@
      (button "fetch timeline" :fetch-timeline)
      ; [:div (str @timeline)]
 
-     [:div (str @run-log-url)]
+     [:div (str "run-log-url: " @run-log-url)]
 
      (button "fetch run-log" :fetch-run-log)
 
