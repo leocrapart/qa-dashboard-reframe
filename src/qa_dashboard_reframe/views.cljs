@@ -33,6 +33,7 @@
 
 (defn main-panel [github-names]
   (let [name (rf/subscribe [:name])
+  			last-build-id (rf/subscribe [:last-build-id])
 				timeline (rf/subscribe [:timeline])
 				run-log-url (rf/subscribe [:run-log-url])
 				tests-results (rf/subscribe [:tests-results])]
@@ -61,12 +62,19 @@
      [:div.px-2 "."]
 
 
+     (button "get last build-id" :get-last-build-id)
+
+     [:div (str @last-build-id)]
+
+
      (button "fetch timeline" :fetch-timeline)
      ; [:div (str @timeline)]
 
      [:div (str @run-log-url)]
 
      (button "fetch run-log" :fetch-run-log)
+
+
 
      [:div.text-green-500 (str "Passed: " (:passed @tests-results))]
      [:div.text-red-500 (str "Failed: " (:failed @tests-results))]

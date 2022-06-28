@@ -24,112 +24,67 @@
 
 (def pat-authorization-header {:authorization (str "Basic " pat64)})
 
-(defn last-build-id []
-	39655)
+
 
 
 ;; a fetch here
 (defn timeline-url [build-id]
 	(let [url (str "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/" build-id "/Timeline")]))
 
-(defn timeline [build-id]
-	(let [url (str "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/" build-id "/Timeline")]))
-
-(defn is-run-integration-test-job [record]
-	(let [record-type (record :type)
-				name (record :name)]
-		(if (and (= record-type "Job")
-				   	 (= name "Run integration tests on DEV"))
-			true
-			false)))
-
-(defn good-job [timeline]
-	(filter is-run-integration-test-job (timeline :records)))
-
-(defn run-log-url [timeline]
-	(let [records (timeline :records)
-				job (first (filter is-run-integration-test-job records))]
-		(get-in job [:log :url])))
 
 
-;; with this, can display ui
-;; some parsing here
-(defn parsed-run-log [raw-run-log]
-	{:passed 19
-	 :failed 0
-	 :duration 6
-	 :test-results-url "https://dev.azure.com/hagerdevops-prod/Platform/_TestManagement/Runs?runId=81004&_a=runCharts"})
 
 
-;; api
+
+
+;; prints 
+
 
 (rf/reg-event-fx
-	:fetch-last-build-id
+	:print-result
+	(fn [_ [_ result]]
+		(prn "result")
+		(prn result)))
+
+(rf/reg-event-fx
+	:print-pat
 	(fn [_ _]
-		{:http-xhrio {:method :get
-									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/Timeline"
-									:headers pat-authorization-header
-									:response-format (ajax/json-response-format {:keywords? true})
-									:on-success [:save-last-build-id]
-									:on-failure [:print-result]}}))
-
+		(prn "pat")
+		(prn pat)
+		(prn "pat64")
+		(prn pat64)))
 
 (rf/reg-event-fx
-	:fetch-timeline
+	:print-name
+	(fn [_ [_ result]]
+		(prn "result")
+		(prn (result :name))))
+
+(rf/reg-event-fx
+	:print-failure
 	(fn [_ _]
-		{:http-xhrio {:method :get
-									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/Timeline"
-									:headers pat-authorization-header
-									:response-format (ajax/json-response-format {:keywords? true})
-									:on-success [:save-timeline-run-log-url]
-									:on-failure [:print-result]}}))
-
-
-; (rf/reg-event-fx
-; 	:fetch-timeline
-; 	(fn [_ _]
-; 		{:fetch {:method :get
-; 						 :url "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/logs/29"
-; 						 :mode :cors
-; 						 :credentials :include
-; 						 :headers                {"Authorization"  "Basic wj47nae3gzcsrrrge43myr3qoracbmudit3eb3qhahsgwidyczha"
-;                                       "Accept"         "application/json"}
-; 						 :response-content-types {#"application/.*json" :json}
-; 					 	 :on-success [:print-result]
-; 						 :on-failure [:print-result]}}))
-
-
-(rf/reg-event-fx
-	:fetch-run-log
-	(fn [{:keys [db]} _]
-		{:http-xhrio {:method :get
-									; :uri (db :run-log-url)
-									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/logs/29"
-									:headers pat-authorization-header
-									:response-format (ajax/json-response-format {:keywords? true})
-									:on-success [:save-tests-results]
-									:on-failure [:print-result]}}))
-
-
-
-(rf/reg-event-fx
-	:save-last-build-id
-	(fn [_ [_ builds]]
-		{:http-xhrio {:method :get
-									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds"
-									:headers pat-authorization-header
-									:response-format (ajax/json-response-format {:keywords? true})
-									:on-success [:save-last-build-id]
-									:on-failure [:print-result]
-									}}))
-
-
+		(prn "failure")))
 
 (rf/reg-event-fx
 	:print-run-log
 	(fn [_ [_ run-log]]
 		(prn "run-log")
 		(prn (run-log :value))))
+
+
+
+
+;; saves
+
+
+(rf/reg-event-db
+	:save-timeline
+	(fn [db [_ timeline]]
+		(assoc db :timeline timeline)))
+
+
+;; tests results parsing
+
 
 (defn split-by-z-space [line]
 	(str/split line #"Z "))
@@ -174,17 +129,17 @@
 									#" s - "))))
 
 
-
 (defn tests-results [run-log]
 	(let [tests-results-line (first (filter contains-skipped run-log))]
 		{:passed (passed-tests-result tests-results-line)
 		 :failed (failed-tests-result tests-results-line)
 		 :skipped (skipped-tests-result tests-results-line)
+		 ;; +2 duration and details url
 		 ; :duration (duration-tests-result tests-results-line)
 	 	 :test-results-url "alala"
 		 }))
 
-
+;; save tests results
 
 (rf/reg-event-db
 	:save-tests-results
@@ -197,41 +152,130 @@
 			(assoc db :tests-results (tests-results run-log)))))
 
 
+;; run-log
 
 (rf/reg-event-fx
-	:print-result
-	(fn [_ [_ result]]
-		(prn "result")
-		(prn result)))
+	:fetch-run-log
+	(fn [{:keys [db]} _]
+		{:http-xhrio {:method :get
+									; :uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/logs/29"
+									:uri (db :run-log-url)
+									:headers pat-authorization-header
+									:response-format (ajax/json-response-format {:keywords? true})
+									:on-success [:save-tests-results]
+									:on-failure [:print-result]}}))
 
-(rf/reg-event-db
-	:save-timeline
-	(fn [db [_ timeline]]
-		(assoc db :timeline timeline)))
 
 
+;; run-log-url from timeline
+(defn is-run-integration-test-job [record]
+	(let [record-type (record :type)
+				name (record :name)]
+		(if (and (= record-type "Job")
+				   	 (= name "Run integration tests on DEV"))
+			true
+			false)))
+
+(defn good-job [timeline]
+	(filter is-run-integration-test-job (timeline :records)))
+
+(defn run-log-url [timeline]
+	(let [records (timeline :records)
+				job (first (filter is-run-integration-test-job records))]
+		(get-in job [:log :url])))
+
+
+;; save run-log-url
+;; chain via effect to auto fetch-run-log
 (rf/reg-event-db
 	:save-timeline-run-log-url
 	(fn [db [_ timeline]]
 		(assoc db :run-log-url (run-log-url timeline))
 		))
 
+
+
+
+;; timeline
 (rf/reg-event-fx
-	:print-pat
+	:fetch-timeline
 	(fn [_ _]
-		(prn "pat")
-		(prn pat)
-		(prn "pat64")
-		(prn pat64)))
+		{:http-xhrio {:method :get
+									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds/39655/Timeline"
+									:headers pat-authorization-header
+									:response-format (ajax/json-response-format {:keywords? true})
+									:on-success [:save-timeline-run-log-url]
+									:on-failure [:print-result]}}))
 
 
+
+;; last build-id parsing
+
+; (defn last-build-id []
+; 	39655)
+(defn last-build-id [builds])
+
+(rf/reg-event-db
+	:save-last-build-id
+	(fn [db [_ builds]]
+		(prn builds)
+		(assoc db :last-build-id 9999)
+	))
+
+;; last build-id
 (rf/reg-event-fx
-	:print-name
-	(fn [_ [_ result]]
-		(prn "result")
-		(prn (result :name))))
-
-(rf/reg-event-fx
-	:print-failure
+	:fetch-builds
 	(fn [_ _]
-		(prn "failure")))
+		{:http-xhrio {:method :get
+									:uri "https://dev.azure.com/hagerdevops-prod/Platform/_apis/build/builds"
+									:headers pat-authorization-header
+									:response-format (ajax/json-response-format {:keywords? true})
+									:on-success [:save-last-build-id]
+									:on-failure [:print-result]
+									}}))
+;;
+(rf/reg-event-fx
+	:get-last-build-id
+	(fn [_ _]
+		{:interval {:action :start
+								:id :temp-id
+								:event [:fetch-builds]}}))
+
+
+;; tests results
+(rf/reg-event-fx
+	:get-tests-results
+	(fn [_ _]
+		{:interval {:action :start
+								:id :temp-id
+								:event [:fetch-run-log]}}))
+
+
+
+
+;; with this, can display ui
+;; some parsing here
+(defn tests-results-model [raw-run-log]
+	{:passed 19
+	 :failed 0
+	 :duration 6
+	 :test-results-url "https://dev.azure.com/hagerdevops-prod/Platform/_TestManagement/Runs?runId=81004&_a=runCharts"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

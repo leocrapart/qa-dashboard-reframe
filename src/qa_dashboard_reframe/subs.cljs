@@ -9,6 +9,11 @@
    (:name db)))
 
 (rf/reg-sub
+	:last-build-id
+	(fn [db]
+		(db :last-build-id)))
+
+(rf/reg-sub
 	:timeline
 	(fn [db]
 		(db :timeline)))
