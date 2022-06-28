@@ -1,5 +1,19 @@
 # qa-dashboard-reframe
 
+
+Dashboard to visualize the testing state of the Digital Twin project.
+
+Fetches corresponding data in the AzureDevOps API and display it to be easily understandable.
+Needs a PAT (private access token) to work.
+
++ avoids creating and maintaning an AzureDevops Test plan
++ gives more information than AzureDevops dashboards
+
+
+future upgrades : 
+- run tests from dashboard
+- better ui
+
 A [re-frame](https://github.com/day8/re-frame) application designed to ... well, that part is up to
 you.
 

@@ -27,4 +27,4 @@
    {:preloads []}
    :dev
    {:compiler-options
-    {:closure-defines {qa-dashboard-reframe.core.pat (System/getenv "PAT") }}}}}}
+    {:closure-defines {}}}}}}
