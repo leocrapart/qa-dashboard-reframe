@@ -2,7 +2,7 @@
   (:require
    [re-frame.core :as rf]
    [qa-dashboard-reframe.subs]
-   ))
+   [qa-dashboard-reframe.env :as env]))
 
 ;; aim
 ;; give the QA a syntetic dashboard with only what's needed to communicate
@@ -12,7 +12,6 @@
 ;; and should also be easily understood by other people
 ;; (at least the see if all good, or if something is wrong, what is wrong and the gherkin scenario corresponding + error message)
 ;; so that they can share with the QA if he did not see, and communicate with enought details the problem
-
 
 
 (defn button [text event-name]
@@ -75,7 +74,11 @@
      [:div (str "Duration: " (:duration @tests-results) "s")]
      [:a.underline.hover:text-blue-500 {:href (:test-results-url @tests-results)}
      		"detailed results"]
-					     
+
+     [:div]
+     (button "print pat" :print-pat)
+
+     [:div (str "pat: " env/pat)]
      ]))
 
 

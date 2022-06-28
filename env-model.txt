@@ -1,0 +1,9 @@
+(ns qa-dashboard-reframe.env)
+
+
+(def pat "<pat>")
+
+(def pat64 "<base64EncodedPat>")
+
+;; https://www.base64encode.org/
+

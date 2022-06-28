@@ -13,3 +13,5 @@
 
 # shadow-cljs cache, port files
 /.shadow-cljs/
+
+/src/qa_dashboard_reframe/env.cljs

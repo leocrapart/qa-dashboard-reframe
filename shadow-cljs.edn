@@ -8,7 +8,6 @@
  [[reagent "1.1.1"]
   [re-frame "1.2.0"]
 		[day8.re-frame/http-fx "0.2.4"]
-		[superstructor/re-frame-fetch-fx	"0.2.0"]
 		[cljs-ajax "0.8.4"]
   [binaryage/devtools "1.0.6"]
   ]
@@ -28,5 +27,4 @@
    {:preloads []}
    :dev
    {:compiler-options
-    {:closure-defines
-     { }}}}}}
+    {:closure-defines {qa-dashboard-reframe.core.pat (System/getenv "PAT") }}}}}}
