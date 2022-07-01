@@ -247,14 +247,14 @@
 		(let [builds (result :value)
 					last-build-id (last-build-id builds)
 					builds-ids (digital-graph-data-builds-ids builds)
-					second-last-build-id (nth builds-ids 20)]
+					nth-last-build-id (nth builds-ids 1)]
 
 			(prn "digital graph data builds ids")
 			(prn (digital-graph-data-builds-ids builds))
 
-			{:db (assoc db :last-build-id last-build-id
+			{:db (assoc db :last-build-id nth-last-build-id
 										 :builds-ids builds-ids)
-			 :fx [[:dispatch [:fetch-timeline last-build-id]]]})))
+			 :fx [[:dispatch [:fetch-timeline nth-last-build-id]]]})))
 
 ; (rf/reg-event-db
 ; 	:save-last-build-id
